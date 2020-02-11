@@ -2,9 +2,54 @@ import React, { useState } from "react";
 import SearchBooks from "./components/SearchBooks";
 import logo from "./logo.svg";
 import "./App.css";
+//todo .. must have to learn about the css in js thing, I think it would suit nicely here 
+const shelves = {
+  "shelf1": {
+    id: "shelf1",
+    name: "read",
+    // books:[]
+  },
+  "shelf2": {
+    id: "shelf2",
+    name: "to read",
+    // books:[]
+  },
+  "shelf3": {
+    id: "shelf3",
+    name: "whatever",
+    // books:["book1"]
+  }
+};
+const books = {
+  "book1": {
+    id: "book1",
+    name: "El primer libro",
+    jacket: "cubierga.jpg",
+    shelf: "shelf3"
+    //not sure if it is a good idea to double bonding...if the shelf is in the book object, shoudl the shelf be in the book object too?? thats doubled up
+  },
+  "book2": {
+    id: "book2",
+    name: "El segundo libro",
+    jacket: "cubierga.jpg",
+    shelf: "shelf2"
+  },
+  "book3": {
+    id: "book2",
+    name: "El tercer libro",
+    jacket: "cubierga.jpg",
+    shelf: "shelf3"
+  }
+}
 
+//trying some filtering to get what books goes in what shelf...
+const booksInShelf = (shelf) => Object.keys(books).filter((bookId)=>books[bookId].shelf === "shelf3")
+console.log("booksInShelf",booksInShelf())
 const App = () => {
-  const [showSearchPage, setShowSearchPage] = useState(false);
+  
+    const [showSearchPage, setShowSearchPage] = useState(false);
+
+  console.log("keys: ", Object.keys(shelves).map((shelfId)=>shelves[shelfId].name));
   return (
     <div className="app">
       {showSearchPage ? (
