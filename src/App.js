@@ -20,7 +20,7 @@ const shelves = {
     // books:["book1"]
   }
 };
-const books = {
+const starterBooks = {
   "book1": {
     id: "book1",
     name: "El primer libro",
@@ -43,13 +43,15 @@ const books = {
 }
 
 //trying some filtering to get what books goes in what shelf...
-const booksInShelf = (shelf) => Object.keys(books).filter((bookId)=>books[bookId].shelf === "shelf3")
-console.log("booksInShelf",booksInShelf())
 const App = () => {
   
     const [showSearchPage, setShowSearchPage] = useState(false);
+    const [books, setBooks] = useState(starterBooks);
 
-  console.log("keys: ", Object.keys(shelves).map((shelfId)=>shelves[shelfId].name));
+    const booksInShelf = (shelf) => Object.keys(books).filter((bookId)=>books[bookId].shelf === "shelf3")
+    console.log("booksInShelf",booksInShelf())
+    
+      console.log("keys: ", Object.keys(shelves).map((shelfId)=>shelves[shelfId].name));
   return (
     <div className="app">
       {showSearchPage ? (
