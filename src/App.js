@@ -1,3 +1,4 @@
+'use strict'
 import React, { useState } from "react";
 import SearchBooks from "./components/SearchBooks";
 import logo from "./logo.svg";
@@ -42,6 +43,8 @@ const starterBooks = {
   }
 }
 
+console.log(starterBooks.book3)
+
 //trying some filtering to get what books goes in what shelf...
 const App = () => {
   
@@ -82,7 +85,7 @@ const App = () => {
                           <div className="book-shelf-changer">
                             <select>
                               <option value="move" disabled>
-                                Move to...
+                                This is stupid
                               </option>
                               <option value="currentlyReading">
                                 Currently Reading
