@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI"
 import logo from "./logo.svg";
@@ -62,6 +62,12 @@ const App = () => {
 
   console.log("keys: ", Object.keys(shelves)
     .map((shelfId)=>shelves[shelfId].name));
+
+useEffect(()=>{
+console.log("a tomar por culis")
+},[])
+
+
 
   return (
     <div className="app">
