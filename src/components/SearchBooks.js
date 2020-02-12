@@ -2,7 +2,6 @@ import React, { useState } from "react";
 const SearchBooks = ({setShowSearchPage}) => {
  return (
     <div className="search-books">
-    <SearchBooks />
       <div className="search-books-bar">
         <button className="close-search" onClick={() => setShowSearchPage(false)}>Close</button>
         <div className="search-books-input-wrapper">
