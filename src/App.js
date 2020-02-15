@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI"
+import Book from "./components/Book"
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -47,29 +48,51 @@ const starterBooks = {
     shelf: "shelf3"
   }
 }
-BooksAPI.getAll().then(data=>console.log(data))
-console.log(starterBooks.book3)
-
+// const allBooksObj = {}
+// BooksAPI.getAll().then(data=>{
+//   data.forEach(entry => {
+//   allBooksObj[entry.id] = entry;
+//   })
+// })
+// console.log(starterBooks.book3)
+// console.log(allBooksObj)
 //trying some filtering to get what books goes in what shelf...
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
-  const [books, setBooks] = useState(starterBooks);
+  const [books, setBooks] = useState({});
   
   //function shows the books that exist at a certain shelf
   const booksInShelf = (shelf) => Object.keys(books)
     .filter((bookId)=>books[bookId].shelf === shelf)
-  console.log("booksInShelf",booksInShelf("shelf3"))
+  // console.log("booksInShelf",booksInShelf("shelf3"))
 
   console.log("keys: ", Object.keys(shelves)
     .map((shelfId)=>shelves[shelfId].name));
 
+
+const objFormat = (obj) => {
+  
+}
+
+
+// useEffect(()=>{
+// const allBooksObj = {}
+// BooksAPI.getAll().then(data=>{
+//   data.forEach(entry => {
+//   allBooksObj[entry.id] = entry;
+//   })
+// })
+// // console.log(allBooksObj)
+// setBooks(allBooksObj)
+// },[])
+
+
 useEffect(()=>{
-console.log("a tomar por culis")
+  BooksAPI.getAll().then(data => console.log(data))
 },[])
 
 
-
-  return (
+  return (books && 
     <div className="app">
       {showSearchPage ? (
         <SearchBooks setShowSearchPage={setShowSearchPage} />
@@ -115,6 +138,7 @@ console.log("a tomar por culis")
                       </div>
                     </li>
                     <li>
+                      <Book bookObj={books.jAUODAAAQBAJ}/>
                       <div className="book">
                         <div className="book-top">
                           <div
