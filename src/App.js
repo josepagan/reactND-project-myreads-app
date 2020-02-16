@@ -88,7 +88,7 @@ const objFormat = (obj) => {
 
 
 useEffect(()=>{
-  BooksAPI.getAll().then(data => console.log(data))
+  BooksAPI.getAll().then(data => setBooks([...data]))
 },[])
 
 
@@ -138,7 +138,7 @@ useEffect(()=>{
                       </div>
                     </li>
                     <li>
-                      <Book bookObj={books.jAUODAAAQBAJ}/>
+                      <Book bookObj={books[0]}/>
                       <div className="book">
                         <div className="book-top">
                           <div
