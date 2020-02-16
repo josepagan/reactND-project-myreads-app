@@ -77,30 +77,29 @@ const objFormat = (obj) => {
 }
 
 
-// useEffect(()=>{
-// const allBooksObj = {}
-// BooksAPI.getAll().then(data=>{
-//   data.forEach(entry => {
-//   allBooksObj[entry.id] = entry;
-//   })
-// })
-// // console.log(allBooksObj)
-// setBooks(allBooksObj)
-// },[])
-
-
 useEffect(()=>{
-  const allBooksArr = [];
-  BooksAPI.getAll().then(data => {
-    data.forEach(entry => {
-      const obj = {}
-      obj[entry.id] = entry
-      allBooksArr.push(obj)
-    })
+const allBooksObj = {}
+BooksAPI.getAll().then(data=>{
+  data.forEach(entry => {
+  allBooksObj[entry.id] = entry;
   })
-  console.log(allBooksArr)
+})
+setBooks(allBooksObj)
 },[])
 
+// useEffect(()=>{
+//   const allBooksArr = [];
+//   BooksAPI.getAll().then(data => {
+//     data.forEach(entry => {
+//       const obj = {}
+//       obj[entry.id] = entry
+//       allBooksArr.push(obj)
+//     })
+//   })
+//   console.log(allBooksArr)
+// },[])
+const booksArray = Object.values(allBooksArr)
+console.log(booksArray)
 
   return (books && 
     <div className="app">
