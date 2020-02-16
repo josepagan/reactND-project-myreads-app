@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI"
 import Book from "./components/Book"
-import logo from "./logo.svg";
 import "./App.css";
 
 //todo .. must have to learn about the css in js thing, 
@@ -53,10 +52,13 @@ const starterBooks = {
 //   data.forEach(entry => {
 //   allBooksObj[entry.id] = entry;
 //   })
-// })
+// }
 // console.log(starterBooks.book3)
 // console.log(allBooksObj)
 //trying some filtering to get what books goes in what shelf...
+// probably this is the best way to use with OBJECT.VALUES
+
+
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState({});
@@ -88,7 +90,15 @@ const objFormat = (obj) => {
 
 
 useEffect(()=>{
-  BooksAPI.getAll().then(data => setBooks([...data]))
+  const allBooksArr = [];
+  BooksAPI.getAll().then(data => {
+    data.forEach(entry => {
+      const obj = {}
+      obj[entry.id] = entry
+      allBooksArr.push(obj)
+    })
+  })
+  console.log(allBooksArr)
 },[])
 
 
