@@ -5,7 +5,7 @@ import Book from "./components/Book";
 import Bookshelf from "./components/Bookshelf";
 import "./App.css";
 
-//todo .. must have to learn about the css in js thing,
+//todo .. must learn about the css in js thing,
 //I think it would suit nicely here
 const shelves = {
   shelf1: {
@@ -24,30 +24,7 @@ const shelves = {
     // books:["book1"]
   }
 };
-const starterBooks = {
-  book1: {
-    id: "book1",
-    name: "El primer libro",
-    jacket: "cubierga.jpg",
-    shelf: "shelf3"
 
-    //not sure if it is a good idea to double bonding...
-    //if the shelf is in the book object,
-    //shoudl the shelf be in the book object too?? thats doubled up
-  },
-  book2: {
-    id: "book2",
-    name: "El segundo libro",
-    jacket: "cubierga.jpg",
-    shelf: "shelf2"
-  },
-  book3: {
-    id: "book2",
-    name: "El tercer libro",
-    jacket: "cubierga.jpg",
-    shelf: "shelf3"
-  }
-};
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -61,10 +38,6 @@ const App = () => {
       setBooks(data);
     });
   }, []);
-
-  // const booksGrid = books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)
-
-  // const BooksGrid = () => books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)
 
   return (
     books && (
@@ -83,7 +56,6 @@ const App = () => {
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                      {/* {books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)} */}
                     </ol>
                   </div>
                 </div>
