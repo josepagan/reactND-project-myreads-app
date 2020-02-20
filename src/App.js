@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI";
 import Book from "./components/Book";
+import Bookshelf from "./components/Bookshelf";
 import "./App.css";
 
 //todo .. must have to learn about the css in js thing,
@@ -51,12 +52,19 @@ const starterBooks = {
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
+  const omg = () => {
+    BooksAPI.update(books[0], "").then(data => console.log(data));
+  };
 
   useEffect(() => {
     BooksAPI.getAll().then(data => {
       setBooks(data);
     });
   }, []);
+
+  // const booksGrid = books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)
+
+  // const BooksGrid = () => books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)
 
   return (
     books && (
@@ -66,15 +74,16 @@ const App = () => {
         ) : (
           <div className="list-books">
             <div className="list-books-title">
-              <h1>MyReads</h1>
+              <h1 onClick={omg}>MyReads</h1>
             </div>
             <div className="list-books-content">
               <div>
+                <Bookshelf books={books} shelf="currentlyReading"/>
                 <div className="bookshelf">
                   <h2 className="bookshelf-title">Currently Reading</h2>
                   <div className="bookshelf-books">
                     <ol className="books-grid">
-                      {books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)}
+                      {/* {books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)} */}
                     </ol>
                   </div>
                 </div>
