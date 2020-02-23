@@ -2,10 +2,12 @@ import React from "react";
 import Book from "./Book"
 
 const Bookshelf = ({books, shelf}) => {
-    const booksGridList = books.map(bookObj=> <li><Book bookObj={bookObj}/></li>)
+    const booksGridList = books
+    .filter((bookObj)=>bookObj.shelf === shelf.id)
+    .map(bookObj=> <Book key={bookObj.id} bookObj={bookObj}/>)
     return (
     <div className="bookshelf">
-      <h2 className="bookshelf-title">Currently Reading</h2>
+      <h2 className="bookshelf-title">{shelf.name}</h2>
       <div className="bookshelf-books">
         <ol className="books-grid">
             {booksGridList}

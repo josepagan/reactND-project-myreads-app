@@ -4,27 +4,7 @@ import * as BooksAPI from "./BooksAPI";
 import Book from "./components/Book";
 import Bookshelf from "./components/Bookshelf";
 import "./App.css";
-
-//todo .. must learn about the css in js thing,
-//I think it would suit nicely here
-const shelves = {
-  shelf1: {
-    id: "shelf1",
-    name: "read"
-    // books:[]
-  },
-  shelf2: {
-    id: "shelf2",
-    name: "to read"
-    // books:[]
-  },
-  shelf3: {
-    id: "shelf3",
-    name: "whatever"
-    // books:["book1"]
-  }
-};
-
+import shelves from "./shelvesData"
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -39,6 +19,11 @@ const App = () => {
     });
   }, []);
 
+  //todo:
+  //I must format the shelves object properly so it works with the Bookshelf 
+  // i must do the filtering so it works properly
+  // I must make the selector functional
+  // I must 
   return (
     books && (
       <div className="app">
@@ -51,26 +36,9 @@ const App = () => {
             </div>
             <div className="list-books-content">
               <div>
-                <Bookshelf books={books} shelf="currentlyReading"/>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid"></ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid"></ol>
-                  </div>
-                </div>
+                <Bookshelf books={books} shelf={shelves.currentlyReading}/>
+                <Bookshelf books={books} shelf={shelves.wantToRead}/>
+                <Bookshelf books={books} shelf={shelves.read}/>
               </div>
             </div>
             <div className="open-search">
