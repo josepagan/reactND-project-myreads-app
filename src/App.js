@@ -10,7 +10,7 @@ const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
   const omg = () => {
-    BooksAPI.update(books[0], "").then(data => console.log(data));
+    BooksAPI.update(books[0], "read").then(data => console.log(data));
   };
 
   useEffect(() => {
@@ -20,10 +20,7 @@ const App = () => {
   }, []);
 
   //todo:
-  //I must format the shelves object properly so it works with the Bookshelf 
-  // i must do the filtering so it works properly
   // I must make the selector functional
-  // I must 
   return (
     books && (
       <div className="app">
@@ -32,8 +29,9 @@ const App = () => {
         ) : (
           <div className="list-books">
             <div className="list-books-title">
-              <h1 onClick={omg}>MyReads</h1>
+              <h1>MyReads</h1>
             </div>
+            <button onClick={omg}>Test button</button>
             <div className="list-books-content">
               <div>
                 <Bookshelf books={books} shelf={shelves.currentlyReading}/>
