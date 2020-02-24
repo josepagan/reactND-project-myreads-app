@@ -4,14 +4,18 @@ import * as BooksAPI from "./BooksAPI";
 import Book from "./components/Book";
 import Bookshelf from "./components/Bookshelf";
 import "./App.css";
-import shelves from "./shelvesData"
+import shelves from "./shelvesData";
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
-  const omg = () => {
-    BooksAPI.update(books[0], "read").then(data => console.log(data));
-  };
+  const {currentlyReading, wantToRead, read} = shelves;
+  // const omg = () => {
+  //   BooksAPI.update(books[5], "").then(data => console.log(data));
+  // };
+  const changeShelf = (e) => {
+    console.log("omg")
+  }
 
   useEffect(() => {
     BooksAPI.getAll().then(data => {
@@ -31,12 +35,12 @@ const App = () => {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <button onClick={omg}>Test button</button>
+            {/* <button onClick={omg}>Test button</button> */}
             <div className="list-books-content">
               <div>
-                <Bookshelf books={books} shelf={shelves.currentlyReading}/>
-                <Bookshelf books={books} shelf={shelves.wantToRead}/>
-                <Bookshelf books={books} shelf={shelves.read}/>
+                <Bookshelf books={books} shelf={currentlyReading} changeShelf={changeShelf}/>
+                <Bookshelf books={books} shelf={wantToRead} changeShelf={changeShelf}/>
+                <Bookshelf books={books} shelf={read} changeShelf={changeShelf}/>
               </div>
             </div>
             <div className="open-search">

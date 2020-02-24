@@ -1,25 +1,42 @@
 import React, { useState } from "react";
 import shelves from "../shelvesData";
 
-const BookShelfChanger = ({ book }) => {
+const BookShelfChanger = ({ book, changeShelf }) => {
+  const [shelfValue, setShelfValue] = useState(book.shelf);
+  const handleSubmit = () => {
+    console.log("shelfvalue", shelfvalue)
+    changeShelf()
+  }
   const optionsList = Object.keys(shelves).map(entry => (
-    <option value={shelves[entry].id}
-    disabled={book.shelf === shelves[entry].id}>{shelves[entry].name}
-     </option>
+    <option
+      value={shelves[entry].id}
+      // disabled={book.shelf === shelves[entry].id}
+    >
+      {shelves[entry].name}
+    </option>
   ));
-  console.log(optionsList);
+
   return (
     <div className="book-shelf-changer">
-      <select>
+      <select
+        defaultValue={shelfValue}
+        onChange={
+          (value) => {
+            setShelfValue(value);
+            handleSubmit();
+          }
+        }
+      >
         <option value="move" disabled>
           move book to:
         </option>
         {/* <option value="currentlyReading">Currently Reading</option>
-      <option value="wantToRead">Want to Read</option>
-      <option value="read">Read</option>
-      <option value="none">None</option> */}
+        <option value="wantToRead">Want to Read</option>
+        <option value="read">Read</option>
+        <option value="none">None</option> */}
         {optionsList}
       </select>
+      {/* <button onClick={changeShelf}></button> */}
     </div>
   );
 };
