@@ -14,10 +14,13 @@ const App = () => {
   //   BooksAPI.update(books[5], "").then(data => console.log(data));
   // };
   const changeShelf = (book,shelf) => {
-    //find book in array
-    // const found = books.findIndex(book => book.id === bookId)
+    const updatedBooks = [...books]
+    const found = updatedBooks.findIndex(element => book.id === element.id)
+    console.log(found)
+    updatedBooks[found].shelf = shelf
+    
     BooksAPI.update(book, shelf).then(data => {
-      if (data[shelf].includes(book.id)) console.log('ALL OK')
+      if (data[shelf].includes(book.id)) setBooks(updatedBooks)
        //aqui inventarse un modo de cambiar el state para que salte automaticamente
       
     })
