@@ -16,10 +16,19 @@ const App = () => {
   const changeShelf = (book,shelf) => {
     const updatedBooks = [...books]
     const found = updatedBooks.findIndex(element => book.id === element.id)
-    console.log(found)
-    updatedBooks[found].shelf = shelf
+    updatedBooks[found].shelf = shelf;
+    updatedBooks[found].stamp = Date.now();
+
+    //to be able to sort books depending on last...
+    //I could change the state to 3 different arrays
+    //maybe a simpler way would be to create the book.position=
+    //then on the render make a sort()based on book.position.
+    //
+    //To find out the book.position I have to find out the number of books with that shelf. Probaly a reduce?
+    // I just need to make an special sorting function to .sort()
     
     BooksAPI.update(book, shelf).then(data => {
+      console.log(data);
       if (data[shelf].includes(book.id)) setBooks(updatedBooks)
        //aqui inventarse un modo de cambiar el state para que salte automaticamente
       
