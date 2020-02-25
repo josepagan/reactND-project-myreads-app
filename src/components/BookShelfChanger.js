@@ -4,7 +4,7 @@ import shelves from "../shelvesData";
 const BookShelfChanger = ({ book, changeShelf }) => {
   const [shelfValue, setShelfValue] = useState(book.shelf);
   const handleSubmit = () => {
-    console.log("shelfvalue", shelfvalue)
+    console.log("shelfvalue", shelfValue)
     changeShelf()
   }
   const optionsList = Object.keys(shelves).map(entry => (
@@ -21,9 +21,11 @@ const BookShelfChanger = ({ book, changeShelf }) => {
       <select
         defaultValue={shelfValue}
         onChange={
-          (value) => {
-            setShelfValue(value);
-            handleSubmit();
+          (e) => {
+            {/* console.log(e.target.value) */}
+            changeShelf(book, e.target.value)
+            {/* setShelfValue(e.target.value); */}
+            {/* handleSubmit(); */}
           }
         }
       >

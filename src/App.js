@@ -13,16 +13,20 @@ const App = () => {
   // const omg = () => {
   //   BooksAPI.update(books[5], "").then(data => console.log(data));
   // };
-  const changeShelf = (e) => {
-    console.log("omg")
+  const changeShelf = (book,shelf) => {
+    //find book in array
+    // const found = books.findIndex(book => book.id === bookId)
+    BooksAPI.update(book, shelf).then(data => {
+      if (data[shelf].includes(book.id)) console.log('ALL OK')
+       //aqui inventarse un modo de cambiar el state para que salte automaticamente
+      
+    })
   }
-
   useEffect(() => {
     BooksAPI.getAll().then(data => {
       setBooks(data);
     });
   }, []);
-
   //todo:
   // I must make the selector functional
   return (
@@ -50,7 +54,7 @@ const App = () => {
             </div>
           </div>
         )}
-      </div>
+        </div>
     )
   );
 };

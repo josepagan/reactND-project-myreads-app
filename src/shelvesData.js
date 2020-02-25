@@ -1,14 +1,14 @@
 export default {
     "currentlyReading": {
       id: "currentlyReading",
-      name: "Currently Reading omg"
+      name: "Currently Reading"
     },
     "wantToRead": {
       id: "wantToRead",
-      name: "to read"
+      name: "Want to Read"
     },
     "read": {
       id: "read",
-      name: "whatever"
+      name: "Read"
     }
   };
