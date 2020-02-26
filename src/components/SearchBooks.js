@@ -1,6 +1,34 @@
-import React, { useState } from "react";
-const SearchBooks = ({setShowSearchPage}) => {
- return (
+import React, { useState, useEffect } from "react";
+import * as BooksAPI from '../BooksAPI'
+
+const SearchBooks = ({ setShowSearchPage, books }) => {
+  const [searchInput, setSearchInput] = useState("")
+  const [searchResults, SetSearchResults] = useState([])
+  const handleChange = (e) => {
+    setSearchInput(e.target.value)
+  }
+  // useEffect(() => {
+  //   BooksAPI.search(searchInput, 20).then(data => data.map(bookObj => {
+  //       if (books.map(el => el.id).includes(bookObj.id)) return books.find(el => el.id === bookObj.id)
+  //       else return bookObj
+  //     }
+  //     ))}
+  // , [searchInput]);
+
+  // const merge = (data) => {
+  //   return data.map(searchObj => {
+  //     return books.find(el => el.id === searchObj.id) || searchObj
+  //   })
+  // }
+
+const merge = (data) => console.log(searchResults.map(el=>el))
+
+
+  useEffect(() => {
+    BooksAPI.search(searchInput, 10).then(data => SetSearchResults(data))
+
+  }, [searchInput])
+  return (
     <div className="search-books">
       <div className="search-books-bar">
         <button className="close-search" onClick={() => setShowSearchPage(false)}>Close</button>
@@ -13,7 +41,11 @@ const SearchBooks = ({setShowSearchPage}) => {
             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
             you don't find a specific author or title. Every search is limited by search terms.
           */}
-          <input type="text" placeholder="Search by title or author"/>
+          <input
+            value={searchInput}
+            type="text"
+            placeholder="Search by title or author"
+            onChange={handleChange} />
 
         </div>
       </div>

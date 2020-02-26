@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI";
-import Book from "./components/Book";
 import Bookshelf from "./components/Bookshelf";
 import "./App.css";
 import shelves from "./shelvesData";
+import { BrowserRouter, Route, Link  } from "react-router-dom";
+
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -26,12 +27,12 @@ const App = () => {
     //
     //To find out the book.position I have to find out the number of books with that shelf. Probaly a reduce?
     // I just need to make an special sorting function to .sort()
-    
+
     BooksAPI.update(book, shelf).then(data => {
       console.log(data);
       if (data[shelf].includes(book.id)) setBooks(updatedBooks)
-       //aqui inventarse un modo de cambiar el state para que salte automaticamente
-      
+      //aqui inventarse un modo de cambiar el state para que salte automaticamente
+
     })
   }
   useEffect(() => {
@@ -44,29 +45,29 @@ const App = () => {
   return (
     books && (
       <div className="app">
-        {showSearchPage ? (
-          <SearchBooks setShowSearchPage={setShowSearchPage} />
-        ) : (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            {/* <button onClick={omg}>Test button</button> */}
-            <div className="list-books-content">
-              <div>
-                <Bookshelf books={books} shelf={currentlyReading} changeShelf={changeShelf}/>
-                <Bookshelf books={books} shelf={wantToRead} changeShelf={changeShelf}/>
-                <Bookshelf books={books} shelf={read} changeShelf={changeShelf}/>
-              </div>
-            </div>
-            <div className="open-search">
-              <button onClick={() => setShowSearchPage(true)}>
-                Add a book
-              </button>
+
+
+        <div className="list-books">
+          <div className="list-books-title">
+            <h1>MyReads</h1>
+          </div>
+          {/* <button onClick={omg}>Test button</button> */}
+          <div className="list-books-content">
+            <div>
+              <Bookshelf books={books} shelf={currentlyReading} changeShelf={changeShelf}/>
+              <Bookshelf books={books} shelf={wantToRead} changeShelf={changeShelf}/>
+              <Bookshelf books={books} shelf={read} changeShelf={changeShelf}/>
             </div>
           </div>
-        )}
+          <div className="open-search">
+            <button onClick={() => setShowSearchPage(true)}>
+              Add a book
+            </button>
+          </div>
         </div>
+
+        <SearchBooks setShowSearchPage={setShowSearchPage} books={books}/>
+      </div>
     )
   );
 };
