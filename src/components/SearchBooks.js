@@ -9,7 +9,7 @@ const SearchBooks = ({ setShowSearchPage, books }) => {
   }
   // useEffect(() => {
   //   BooksAPI.search(searchInput, 20).then(data => data.map(bookObj => {
-  //       if (books.map(el => el.id).includes(bookObj.id)) return books.find(el => el.id === bookObj.id)
+  //       if const mapped = searchResults.map(el => el.id)(books.map(el => el.id).includes(bookObj.id)) return books.find(el => el.id === bookObj.id)
   //       else return bookObj
   //     }
   //     ))}
@@ -21,12 +21,14 @@ const SearchBooks = ({ setShowSearchPage, books }) => {
   //   })
   // }
 
-const merge = (data) => console.log(searchResults.map(el=>el))
-
+  useEffect(() => {
+    if (Array.isArray(searchResults)) {
+      const idList = searchResults.map(el => el.id)
+    }
+  }, [searchResults])
 
   useEffect(() => {
     BooksAPI.search(searchInput, 10).then(data => SetSearchResults(data))
-
   }, [searchInput])
   return (
     <div className="search-books">
@@ -50,7 +52,7 @@ const merge = (data) => console.log(searchResults.map(el=>el))
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid"></ol>
+        <ol className="books-grid">{idList}</ol>
       </div>
     </div>
   )
