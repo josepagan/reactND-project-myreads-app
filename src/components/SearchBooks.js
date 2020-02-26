@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import * as BooksAPI from '../BooksAPI'
+import * as BooksAPI from "../BooksAPI";
 
 const SearchBooks = ({ setShowSearchPage, books }) => {
-  const [searchInput, setSearchInput] = useState("")
-  const [searchResults, SetSearchResults] = useState([])
-  const handleChange = (e) => {
-    setSearchInput(e.target.value)
-  }
+  const [searchInput, setSearchInput] = useState("");
+  const [searchResults, SetSearchResults] = useState([]);
+  const handleChange = e => {
+    setSearchInput(e.target.value);
+  };
   // useEffect(() => {
   //   BooksAPI.search(searchInput, 20).then(data => data.map(bookObj => {
   //       if const mapped = searchResults.map(el => el.id)(books.map(el => el.id).includes(bookObj.id)) return books.find(el => el.id === bookObj.id)
@@ -16,24 +16,34 @@ const SearchBooks = ({ setShowSearchPage, books }) => {
   // , [searchInput]);
 
   // const merge = (data) => {
-  //   return data.map(searchObj => {
+  //   return data.map(searchObj => 
+  
+  
+        //  {
   //     return books.find(el => el.id === searchObj.id) || searchObj
   //   })
   // }
 
   useEffect(() => {
     if (Array.isArray(searchResults)) {
-      const idList = searchResults.map(el => el.id)
+      console.log(searchResults.map(el => el.title));
     }
-  }, [searchResults])
+  }, [searchResults]);
 
   useEffect(() => {
-    BooksAPI.search(searchInput, 10).then(data => SetSearchResults(data))
-  }, [searchInput])
-  return (
+    if (searchInput) {
+      BooksAPI.search(searchInput, 10).then(data => SetSearchResults(data));
+    }
+  }, [searchInput]);
+if (Array.isArray(searchResults))  return (
     <div className="search-books">
       <div className="search-books-bar">
-        <button className="close-search" onClick={() => setShowSearchPage(false)}>Close</button>
+        <button
+          className="close-search"
+          onClick={() => setShowSearchPage(false)}
+        >
+          Close
+        </button>
         <div className="search-books-input-wrapper">
           {/*
             NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -47,15 +57,15 @@ const SearchBooks = ({ setShowSearchPage, books }) => {
             value={searchInput}
             type="text"
             placeholder="Search by title or author"
-            onChange={handleChange} />
-
+            onChange={handleChange}
+          />
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid">{idList}</ol>
+        <ol className="books-grid">{null}</ol>
       </div>
     </div>
-  )
+  );
 };
 
-export default SearchBooks;
+export default SearchBooks
