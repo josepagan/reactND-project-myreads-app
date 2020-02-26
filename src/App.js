@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
-import shelves from "./shelvesData";
 import { BrowserRouter, Route, Link } from "react-router-dom";
-import ListBooks from "./components/ListBooks"
+import ListBooks from "./components/ListBooks";
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
@@ -21,7 +20,6 @@ const App = () => {
     BooksAPI.update(book, shelf).then(data => {
       console.log(data);
       if (data[shelf].includes(book.id)) setBooks(updatedBooks);
-      //aqui inventarse un modo de cambiar el state para que salte automaticamente
     });
   };
   useEffect(() => {
@@ -32,8 +30,32 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="app">
-        <ListBooks books={books} changeShelf={changeShelf} />
-        <SearchBooks setShowSearchPage={setShowSearchPage} books={books} />
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <ListBooks
+              {...props}
+              books={books}
+              changeShelf={changeShelf}
+              showSearchPage={showSearchPage}
+              setShowSearchPage={setShowSearchPage}
+            />
+          )}
+        />
+        {/* <ListBooks books={books} changeShelf={changeShelf} /> */}
+        {/* <SearchBooks setShowSearchPage={setShowSearchPage} books={books} /> */}
+        <Route
+          path="/search"
+          render={props => (
+            <SearchBooks
+              {...props}
+              books={books}
+              showSearchPage={showSearchPage}
+              setShowSearchPage={setShowSearchPage}
+            />
+          )}
+        />
       </div>
     </BrowserRouter>
   );

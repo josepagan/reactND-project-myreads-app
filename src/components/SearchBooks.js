@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as BooksAPI from "../BooksAPI";
+import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
 
-const SearchBooks = ({ setShowSearchPage, books }) => {
+const SearchBooks = ({ showSearchPage, setShowSearchPage, books }) => {
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, SetSearchResults] = useState([]);
   const handleChange = e => {
@@ -35,12 +36,12 @@ const SearchBooks = ({ setShowSearchPage, books }) => {
       BooksAPI.search(searchInput, 10).then(data => SetSearchResults(data));
     }
   }, [searchInput]);
-if (Array.isArray(searchResults))  return (
+if (Array.isArray(searchResults))  return (!showSearchPage ? <Redirect to="/"/> :
     <div className="search-books">
       <div className="search-books-bar">
         <button
           className="close-search"
-          onClick={() => setShowSearchPage(false)}
+          onClick={()=>{setShowSearchPage(false)}}
         >
           Close
         </button>
