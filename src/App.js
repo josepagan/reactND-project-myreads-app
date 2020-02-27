@@ -9,9 +9,12 @@ const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [bookPool,setBookPool] = useState([])
 
   const changeShelf = (book, shelf) => {
-    const updatedBooks = [...books]; //the new seach wont work because this function works on books, not on the list of  seaached books... I have to unify and filter
+    //this method  was only meant to CHANGE, but I have to ADD, 
+    //so I have to do a findIndex on books, if it is negative, i just have it to add it to [...books] 
+    const updatedBooks = [...books];
     const found = updatedBooks.findIndex(element => book.id === element.id);
     updatedBooks[found].shelf = shelf;
     updatedBooks[found].stamp = Date.now();
@@ -29,7 +32,17 @@ const App = () => {
     });
   }, []);
 
+useEffect(()=>{
+  //I have to map search results so if the books is IN BOOKS it will show up
+  // that one, with .shelf and all that
+  const selecting = (bookObj) => {
+    return books.find(el => el.id === bookObj.id) || bookObj
 
+  }
+  const merged = searchResults.map(selecting)
+  setBookPool(merged)
+
+},[searchResults])
   
   return (
     <BrowserRouter>

@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from "react";
 import * as BooksAPI from "../BooksAPI";
 import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
-import Book from "./Book"
+import Book from "./Book";
 
-const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, setSearchResults, changeShelf }) => {
+const SearchBooks = ({
+  showSearchPage,
+  setShowSearchPage,
+  books,
+  searchResults,
+  setSearchResults,
+  changeShelf
+}) => {
   const [searchInput, setSearchInput] = useState("");
-  const [searchStatus,setSearchStatus] = useState("NONE")
-  const handleChange = e => {setSearchInput(e.target.value)};
+  const [emptyQuery, setEmptyQuery] = useState(false);
+  const handleChange = e => {
+    setSearchInput(e.target.value);
+  };
 
-  const handleSearchResult = (data) => {
-  if (data === "") setSearchStatus("NONE")
-  else if (Array.isArray(data)) setSearchResults(data)
-   else console.log("not books",data)       
-
-//so...
-//if rawdata null... render (...)
-//if rawdata: object with error (not found) message...B render error
-//if rawdata books!! then send books to app to do mergin
-
-  }
-    
-//i dont think app needs to know about not having nothing to display. 
-//if the resoult is not book i have to order searcbook to directly say.. nothing to se
-//if the results are books i have to send then to app to get them blended with the books. hopefully.
+  const handleSearchResult = data => {
+    if (data.error === "empty query") setEmptyQuery(true);
+    else if (Array.isArray(data)) {
+      setEmptyQuery(false);
+      setSearchResults(data);
+    }
 
 
+  };
 
-
-  
-
-
+  //i dont think app needs to know about not having nothing to display.
+  //if the resoult is not book i have to order searcbook to directly say.. nothing to se
+  //if the results are books i have to send then to app to get them blended with the books. hopefully.
 
   // useEffect(() => {
   //   BooksAPI.search(searchInput, 20).then(data => data.map(bookObj => {
@@ -40,10 +40,9 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, 
   // , [searchInput]);
 
   // const merge = (data) => {
-  //   return data.map(searchObj => 
-  
-  
-        //  {
+  //   return data.map(searchObj =>
+
+  //  {
   //     return books.find(el => el.id === searchObj.id) || searchObj
   //   })
   // }
@@ -53,7 +52,6 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, 
   //     console.log(searchResults.map(el => el.title));
   //   }
   // }, [searchResults]);
-  
 
   useEffect(() => {
     if (searchInput) {
@@ -61,12 +59,16 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, 
     }
   }, [searchInput]);
 
- return (!showSearchPage ? <Redirect to="/"/> :
+  return !showSearchPage ? (
+    <Redirect to="/" />
+  ) : (
     <div className="search-books">
       <div className="search-books-bar">
         <button
           className="close-search"
-          onClick={()=>{setShowSearchPage(false)}}
+          onClick={() => {
+            setShowSearchPage(false);
+          }}
         >
           Close
         </button>
@@ -88,10 +90,24 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, 
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid">{(searchInput==="") ? null : searchResults.map(bookObj=> <Book key={bookObj.id} bookObj={bookObj} changeShelf={changeShelf}/>)}</ol>
+        {emptyQuery ? (
+          <div>sorray mate</div>
+        ) : (
+          <ol className="books-grid">
+            {searchInput === ""
+              ? null
+              : searchResults.map(bookObj => (
+                  <Book
+                    key={bookObj.id}
+                    bookObj={bookObj}
+                    changeShelf={changeShelf}
+                  />
+                ))}
+          </ol>
+        )}
       </div>
     </div>
   );
 };
 
-export default SearchBooks
+export default SearchBooks;
