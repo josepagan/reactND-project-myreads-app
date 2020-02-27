@@ -11,16 +11,17 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, 
   const handleSearchResult = (data) => {
    if (Array.isArray(data)) setSearchResults(data) 
 
+//so...
+//if rawdata null... render (...)
+//if rawdata: object with error (not found) message... render error
+//if rawdata books!! then send books to app to do mergin
+
   }
     
 //i dont think app needs to know about not having nothing to display. 
 //if the resoult is not book i have to order searcbook to directly say.. nothing to se
 //if the results are books i have to send then to app to get them blended with the books. hopefully.
 
-//so...
-//if rawdata null... render (...)
-//if rawdata: object with error (not found) message... render error
-//if rawdata books!! then send books to app to do mergin
 
 
 

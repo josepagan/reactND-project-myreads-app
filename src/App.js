@@ -11,7 +11,7 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
 
   const changeShelf = (book, shelf) => {
-    const updatedBooks = [...books];
+    const updatedBooks = [...books]; //the new seach wont work because this function works on books, not on the list of  seaached books... I have to unify and filter
     const found = updatedBooks.findIndex(element => book.id === element.id);
     updatedBooks[found].shelf = shelf;
     updatedBooks[found].stamp = Date.now();
@@ -28,6 +28,9 @@ const App = () => {
       setBooks(data);
     });
   }, []);
+
+
+  
   return (
     <BrowserRouter>
       <div className="app">
