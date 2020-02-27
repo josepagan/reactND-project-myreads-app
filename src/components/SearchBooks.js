@@ -5,15 +5,17 @@ import Book from "./Book"
 
 const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, setSearchResults, changeShelf }) => {
   const [searchInput, setSearchInput] = useState("");
-  const [toRender,setToRender] = useState(null)
+  const [searchStatus,setSearchStatus] = useState("NONE")
   const handleChange = e => {setSearchInput(e.target.value)};
 
   const handleSearchResult = (data) => {
-   if (Array.isArray(data)) setSearchResults(data) 
+  if (data === "") setSearchStatus("NONE")
+  else if (Array.isArray(data)) setSearchResults(data)
+   else console.log("not books",data)       
 
 //so...
 //if rawdata null... render (...)
-//if rawdata: object with error (not found) message... render error
+//if rawdata: object with error (not found) message...B render error
 //if rawdata books!! then send books to app to do mergin
 
   }
@@ -86,7 +88,7 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, 
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid">{searchResults.map(bookObj=> <Book key={bookObj.id} bookObj={bookObj} changeShelf={changeShelf}/>)}</ol>
+        <ol className="books-grid">{(searchInput==="") ? null : searchResults.map(bookObj=> <Book key={bookObj.id} bookObj={bookObj} changeShelf={changeShelf}/>)}</ol>
       </div>
     </div>
   );
