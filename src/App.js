@@ -8,20 +8,21 @@ import ListBooks from "./components/ListBooks";
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
-  // const omg = () => {
-  //   BooksAPI.update(books[5], "").then(data => console.log(data));
-  // };
+  const [searchResults, setSearchResults] = useState([]);
+
   const changeShelf = (book, shelf) => {
     const updatedBooks = [...books];
     const found = updatedBooks.findIndex(element => book.id === element.id);
     updatedBooks[found].shelf = shelf;
     updatedBooks[found].stamp = Date.now();
-
     BooksAPI.update(book, shelf).then(data => {
       console.log(data);
       if (data[shelf].includes(book.id)) setBooks(updatedBooks);
     });
   };
+  console.log(searchResults)
+
+
   useEffect(() => {
     BooksAPI.getAll().then(data => {
       setBooks(data);
@@ -53,6 +54,8 @@ const App = () => {
               books={books}
               showSearchPage={showSearchPage}
               setShowSearchPage={setShowSearchPage}
+              searchResults={searchResults}
+              setSearchResults={setSearchResults}
             />
           )}
         />
