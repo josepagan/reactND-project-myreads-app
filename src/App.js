@@ -33,12 +33,9 @@ const App = () => {
   }, []);
 
 useEffect(()=>{
-  //I have to map search results so if the books is IN BOOKS it will show up
-  // that one, with .shelf and all that
-  const selecting = (bookObj) => {
-    return books.find(el => el.id === bookObj.id) || bookObj
+  const selecting = (bookObj) => books.find(el => el.id === bookObj.id) || bookObj
 
-  }
+  
   const merged = searchResults.map(selecting)
   setBookPool(merged)
 
@@ -60,8 +57,6 @@ useEffect(()=>{
             />
           )}
         />
-        {/* <ListBooks books={books} changeShelf={changeShelf} /> */}
-        {/* <SearchBooks setShowSearchPage={setShowSearchPage} books={books} /> */}
         <Route
           path="/search"
           render={props => (
