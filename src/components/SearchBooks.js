@@ -1,13 +1,33 @@
 import React, { useState, useEffect } from "react";
 import * as BooksAPI from "../BooksAPI";
 import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
+import Book from "./Book"
 
-const SearchBooks = ({ showSearchPage, setShowSearchPage, books }) => {
+const SearchBooks = ({ showSearchPage, setShowSearchPage, books, searchResults, setSearchResults, changeShelf }) => {
   const [searchInput, setSearchInput] = useState("");
-  const [searchResults, SetSearchResults] = useState([]);
-  const handleChange = e => {
-    setSearchInput(e.target.value);
-  };
+  const [toRender,setToRender] = useState(null)
+  const handleChange = e => {setSearchInput(e.target.value)};
+
+  const handleSearchResult = (data) => {
+   if (Array.isArray(data)) setSearchResults(data) 
+
+  }
+    
+//i dont think app needs to know about not having nothing to display. 
+//if the resoult is not book i have to order searcbook to directly say.. nothing to se
+//if the results are books i have to send then to app to get them blended with the books. hopefully.
+
+//so...
+//if rawdata null... render (...)
+//if rawdata: object with error (not found) message... render error
+//if rawdata books!! then send books to app to do mergin
+
+
+
+  
+
+
+
   // useEffect(() => {
   //   BooksAPI.search(searchInput, 20).then(data => data.map(bookObj => {
   //       if const mapped = searchResults.map(el => el.id)(books.map(el => el.id).includes(bookObj.id)) return books.find(el => el.id === bookObj.id)
@@ -25,18 +45,20 @@ const SearchBooks = ({ showSearchPage, setShowSearchPage, books }) => {
   //   })
   // }
 
-  useEffect(() => {
-    if (Array.isArray(searchResults)) {
-      console.log(searchResults.map(el => el.title));
-    }
-  }, [searchResults]);
+  // useEffect(() => {
+  //   if (Array.isArray(searchResults)) {
+  //     console.log(searchResults.map(el => el.title));
+  //   }
+  // }, [searchResults]);
+  
 
   useEffect(() => {
     if (searchInput) {
-      BooksAPI.search(searchInput, 10).then(data => SetSearchResults(data));
+      BooksAPI.search(searchInput, 10).then(data => handleSearchResult(data));
     }
   }, [searchInput]);
-if (Array.isArray(searchResults))  return (!showSearchPage ? <Redirect to="/"/> :
+
+ return (!showSearchPage ? <Redirect to="/"/> :
     <div className="search-books">
       <div className="search-books-bar">
         <button
@@ -63,7 +85,7 @@ if (Array.isArray(searchResults))  return (!showSearchPage ? <Redirect to="/"/> 
         </div>
       </div>
       <div className="search-books-results">
-        <ol className="books-grid">{null}</ol>
+        <ol className="books-grid">{searchResults.map(bookObj=> <Book key={bookObj.id} bookObj={bookObj} changeShelf={changeShelf}/>)}</ol>
       </div>
     </div>
   );
