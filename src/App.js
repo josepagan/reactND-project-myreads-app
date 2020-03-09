@@ -16,14 +16,13 @@ const App = () => {
   const changeShelf = (book, shelf) => {
 //first creating a shallow copy
     const updatedBooks = [...books];
-    const refresh = 0
     
     //lets find the object in state the state, if not there lets push it there
     let found = updatedBooks.findIndex(element => book.id === element.id);
     if (found === -1) {
       updatedBooks.push(book);
       found = books.length - 1;
-      console.log("FOUND",found)
+      console.log("PFOUND",found)
     }
     //add the necesary properties
 
@@ -34,8 +33,12 @@ const App = () => {
     //lets confirm that server is ok and then call setBooks
     BooksAPI.update(book, shelf).then(data => {
       console.log(data);
-      if (data[shelf].includes(book.id)) setBooks(updatedBooks);
-      refresh ++
+      BooksAPI.getAll().then(data => {
+        setBooks(data);
+      });
+  
+      // if (data[shelf].includes(book.id)) 
+      // setBooks(updatedBooks);
     });
   };
 

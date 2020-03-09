@@ -4,7 +4,7 @@ import BookShelfChanger from "./BookShelfChanger";
 const Book = ({ bookObj, changeShelf }) => {
   if (!bookObj) return null;
   const { title, authors, imageLinks } = bookObj;
-  const { thumbnail } = imageLinks;
+  const { thumbnail } = imageLinks || {};
   return (
     <li>
       <div className="book">
