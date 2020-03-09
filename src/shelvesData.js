@@ -10,5 +10,9 @@ export default {
     "read": {
       id: "read",
       name: "Read"
+    },
+    "none": {
+      id:"none",
+      name: "None"
     }
   };

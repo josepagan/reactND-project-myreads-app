@@ -22,36 +22,11 @@ const SearchBooks = ({
     else if (Array.isArray(data)) {
       setEmptyQuery(false);
       setSearchResults(data);
+      
     }
-
-
   };
 
-  //i dont think app needs to know about not having nothing to display.
-  //if the resoult is not book i have to order searcbook to directly say.. nothing to se
-  //if the results are books i have to send then to app to get them blended with the books. hopefully.
-
-  // useEffect(() => {
-  //   BooksAPI.search(searchInput, 20).then(data => data.map(bookObj => {
-  //       if const mapped = searchResults.map(el => el.id)(books.map(el => el.id).includes(bookObj.id)) return books.find(el => el.id === bookObj.id)
-  //       else return bookObj
-  //     }
-  //     ))}
-  // , [searchInput]);
-
-  // const merge = (data) => {
-  //   return data.map(searchObj =>
-
-  //  {
-  //     return books.find(el => el.id === searchObj.id) || searchObj
-  //   })
-  // }
-
-  // useEffect(() => {
-  //   if (Array.isArray(searchResults)) {
-  //     console.log(searchResults.map(el => el.title));
-  //   }
-  // }, [searchResults]);
+ 
 
   useEffect(() => {
     if (searchInput) {
@@ -96,7 +71,7 @@ const SearchBooks = ({
           <ol className="books-grid">
             {searchInput === ""
               ? null
-              : searchResults.map(bookObj => (
+              : books.map(bookObj => (
                   <Book
                     key={bookObj.id}
                     bookObj={bookObj}

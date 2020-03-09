@@ -7,24 +7,37 @@ import ListBooks from "./components/ListBooks";
 
 const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
+  //books in
   const [books, setBooks] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [bookPool,setBookPool] = useState([])
+  const [mergedBooks, setMergedBooks] = useState([]);
 
+  //i think i have to divide the 3 operations, change shelf, 
   const changeShelf = (book, shelf) => {
-    //this method  was only meant to CHANGE, but I have to ADD, 
-    //so I have to do a findIndex on books, if it is negative, i just have it to add it to [...books] 
+//first creating a shallow copy
     const updatedBooks = [...books];
-    const found = updatedBooks.findIndex(element => book.id === element.id);
+    const refresh = 0
+    
+    //lets find the object in state the state, if not there lets push it there
+    let found = updatedBooks.findIndex(element => book.id === element.id);
+    if (found === -1) {
+      updatedBooks.push(book);
+      found = books.length - 1;
+      console.log("FOUND",found)
+    }
+    //add the necesary properties
+
     updatedBooks[found].shelf = shelf;
     updatedBooks[found].stamp = Date.now();
+
+    //update server (sever only cares of book.id and the shelf)
+    //lets confirm that server is ok and then call setBooks
     BooksAPI.update(book, shelf).then(data => {
       console.log(data);
       if (data[shelf].includes(book.id)) setBooks(updatedBooks);
+      refresh ++
     });
   };
-  console.log(searchResults)
-
 
   useEffect(() => {
     BooksAPI.getAll().then(data => {
@@ -32,15 +45,13 @@ const App = () => {
     });
   }, []);
 
-useEffect(()=>{
-  const selecting = (bookObj) => books.find(el => el.id === bookObj.id) || bookObj
+  useEffect(() => {
+    const selecting = bookObj =>
+      books.find(el => el.id === bookObj.id) || bookObj;
+    const merged = searchResults.map(selecting);
+    setMergedBooks(merged);
+  }, [searchResults]);
 
-  
-  const merged = searchResults.map(selecting)
-  setBookPool(merged)
-
-},[searchResults])
-  
   return (
     <BrowserRouter>
       <div className="app">
@@ -54,6 +65,7 @@ useEffect(()=>{
               changeShelf={changeShelf}
               showSearchPage={showSearchPage}
               setShowSearchPage={setShowSearchPage}
+              setBooks={setBooks}
             />
           )}
         />
@@ -62,11 +74,12 @@ useEffect(()=>{
           render={props => (
             <SearchBooks
               {...props}
-              books={books}
+              books={mergedBooks}
               showSearchPage={showSearchPage}
               setShowSearchPage={setShowSearchPage}
               searchResults={searchResults}
               setSearchResults={setSearchResults}
+              changeShelf={changeShelf}
             />
           )}
         />
@@ -75,34 +88,6 @@ useEffect(()=>{
   );
 };
 
-// const ListBooks = ({ books, changeShelf }) => {
-//   const { currentlyReading, wantToRead, read } = shelves;
 
-//   return (
-//     <div className="list-books">
-//       <div className="list-books-title">
-//         <h1>MyReads</h1>
-//       </div>
-//       <div className="list-books-content">
-//         <div>
-//           <Bookshelf
-//             books={books}
-//             shelf={currentlyReading}
-//             changeShelf={changeShelf}
-//           />
-//           <Bookshelf
-//             books={books}
-//             shelf={wantToRead}
-//             changeShelf={changeShelf}
-//           />
-//           <Bookshelf books={books} shelf={read} changeShelf={changeShelf} />
-//         </div>
-//       </div>
-//       <div className="open-search">
-//         <button onClick={() => "setShowSearchPage(true)"}>Add a book</button>
-//       </div>
-//     </div>
-//   );
-// };
 
 export default App;

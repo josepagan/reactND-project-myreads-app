@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import shelves from "../shelvesData";
 
 const BookShelfChanger = ({ book, changeShelf }) => {
+  const { shelf = "none" } = book;
   const [shelfValue, setShelfValue] = useState(book.shelf);
-  const handleSubmit = () => {
-    console.log("shelfvalue", shelfValue)
-    changeShelf()
+  const handleSubmit = (value) => {
+    changeShelf(book, value)
   }
+
+useEffect(() => {
+  BooksAPI.update(book, shelf).then(data =>console.log(data))
+}, [shelfValue])
+
+  
   const optionsList = Object.keys(shelves).map(entry => (
     <option
       value={shelves[entry].id}
@@ -19,13 +25,13 @@ const BookShelfChanger = ({ book, changeShelf }) => {
   return (
     <div className="book-shelf-changer">
       <select
-        defaultValue={shelfValue}
+        defaultValue={shelf}
         onChange={
           (e) => {
-            {/* console.log(e.target.value) */}
-            changeShelf(book, e.target.value)
-            {/* setShelfValue(e.target.value); */}
-            {/* handleSubmit(); */}
+            // changeShelf(book, e.target.value)
+            // console.log(e.target.value)
+             setShelfValue(e.target.value);
+            //  handleSubmit(e.target.value);
           }
         }
       >
