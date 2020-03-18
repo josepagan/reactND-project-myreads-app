@@ -9,7 +9,12 @@ const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
-  const [mergedBooks, setMergedBooks] = useState([]);
+
+
+    const selecting = bookObj =>
+      books.find(el => el.id === bookObj.id) || bookObj;
+    const merged = searchResults.map(selecting);
+    console.log("merged", merged)
 
   //i think i have to divide the 3 operations, change shelf, 
   const changeShelf = (book, shelf) => {
@@ -27,46 +32,55 @@ const App = () => {
     });
   }, []);
 
-  useEffect(() => {
-    const selecting = bookObj =>
-      books.find(el => el.id === bookObj.id) || bookObj;
-    const merged = searchResults.map(selecting);
-    setMergedBooks(merged);
-  }, [searchResults]);
+  // useEffect(() => {
+  //   const selecting = bookObj =>
+  //     books.find(el => el.id === bookObj.id) || bookObj;
+  //   const merged = searchResults.map(selecting);
+  //   setBooks(merged);
+  // }, [searchResults]);
+
+  // useEffect(() => {
+  //   const selecting2 = bookObj =>
+  //     books.find(el => el.id === bookObj.id) ? false : true;
+  //   const filtered = searchResults.filter(selecting2);
+  //   const newBookArray  = [...books,...filtered]
+  //   setBooks(newBookArray)
+  // }, [searchResults]);
 
   return (
     <BrowserRouter>
-      <div className="app">
-        <Route
-          exact
-          path="/"
-          render={props => (
-            <ListBooks
-              {...props}
-              books={books}
-              changeShelf={changeShelf}
-              showSearchPage={showSearchPage}
-              setShowSearchPage={setShowSearchPage}
-              setBooks={setBooks}
-            />
-          )}
+    <div className="app">
+    <Route
+      exact
+      path="/"
+      render={props => (
+        <ListBooks
+          {...props}
+          books={books}
+          changeShelf={changeShelf}
+          showSearchPage={showSearchPage}
+          setShowSearchPage={setShowSearchPage}
+          setBooks={setBooks}
         />
-        <Route
-          path="/search"
-          render={props => (
-            <SearchBooks
-              {...props}
-              books={mergedBooks}
-              showSearchPage={showSearchPage}
-              setShowSearchPage={setShowSearchPage}
-              searchResults={searchResults}
-              setSearchResults={setSearchResults}
-              changeShelf={changeShelf}
-            />
-          )}
+      )}
         />
-      </div>
-    </BrowserRouter>
+            <Route
+              path="/search"
+              render={props => (
+                <SearchBooks
+                  {...props}
+                  books={merged}
+                  showSearchPage={showSearchPage}
+                  setShowSearchPage={setShowSearchPage}
+                  searchResults={searchResults}
+                  setSearchResults={setSearchResults}
+                  // inShelves={inShelves}
+                  changeShelf={changeShelf}
+                />
+              )}
+                />
+                  </div>
+                </BrowserRouter>
   );
 };
 
