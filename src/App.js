@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import SearchBooks from "./components/SearchBooks";
 import * as BooksAPI from "./BooksAPI";
 import "./App.css";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import ListBooks from "./components/ListBooks";
 
 const App = () => {
@@ -11,25 +11,24 @@ const App = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [mergedBooks, setMergedBooks] = useState([]);
 
-  //i think i have to divide the 3 operations, change shelf, 
   const changeShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(data => {
+    BooksAPI.update(book, shelf).then((data) => {
       console.log(data);
-      BooksAPI.getAll().then(data => {
+      BooksAPI.getAll().then((data) => {
         setBooks(data);
       });
     });
   };
 
   useEffect(() => {
-    BooksAPI.getAll().then(data => {
+    BooksAPI.getAll().then((data) => {
       setBooks(data);
     });
   }, []);
 
   useEffect(() => {
-    const selecting = bookObj =>
-      books.find(el => el.id === bookObj.id) || bookObj;
+    const selecting = (bookObj) =>
+      books.find((el) => el.id === bookObj.id) || bookObj;
     const merged = searchResults.map(selecting);
     setMergedBooks(merged);
   }, [searchResults]);
@@ -40,7 +39,7 @@ const App = () => {
         <Route
           exact
           path="/"
-          render={props => (
+          render={(props) => (
             <ListBooks
               {...props}
               books={books}
@@ -53,7 +52,7 @@ const App = () => {
         />
         <Route
           path="/search"
-          render={props => (
+          render={(props) => (
             <SearchBooks
               {...props}
               books={mergedBooks}
