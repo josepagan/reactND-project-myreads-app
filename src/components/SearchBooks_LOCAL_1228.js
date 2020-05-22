@@ -7,22 +7,12 @@ const SearchBooks = ({
   showSearchPage,
   setShowSearchPage,
   books,
-<<<<<<< HEAD
-=======
-  inShelves,
-  searchResults,
->>>>>>> 90a82286b18202ffb0c64c2916dc07684f68d1cb
   setSearchResults,
   changeShelf,
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [emptyQuery, setEmptyQuery] = useState(false);
-<<<<<<< HEAD
   const handleChange = (e) => {
-=======
-  console.log("inshelves",inShelves);
-  const handleChange = e => {
->>>>>>> 90a82286b18202ffb0c64c2916dc07684f68d1cb
     setSearchInput(e.target.value);
   };
 
@@ -69,12 +59,7 @@ const SearchBooks = ({
           <ol className="books-grid">
             {searchInput === ""
               ? null
-<<<<<<< HEAD
               : books.map((bookObj) => (
-=======
-              //aqui en vez de poner todos los books tengo que poner, los books que salen en results,y despues los results normales
-              : books.map(bookObj => (
->>>>>>> 90a82286b18202ffb0c64c2916dc07684f68d1cb
                   <Book
                     key={bookObj.id}
                     bookObj={bookObj}
