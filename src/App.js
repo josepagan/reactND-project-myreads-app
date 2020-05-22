@@ -9,6 +9,7 @@ const App = () => {
   const [showSearchPage, setShowSearchPage] = useState(false);
   const [books, setBooks] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
+  const [mergedBooks, setMergedBooks] = useState([])
 
 
     const selecting = bookObj =>
@@ -31,7 +32,6 @@ const App = () => {
     });
   }, []);
 
-<<<<<<< HEAD
   useEffect(() => {
     const selecting = (bookObj) =>
       books.find((el) => el.id === bookObj.id) || bookObj;
@@ -69,39 +69,6 @@ const App = () => {
               changeShelf={changeShelf}
             />
           )}
-=======
-  // useEffect(() => {
-  //   const selecting = bookObj =>
-  //     books.find(el => el.id === bookObj.id) || bookObj;
-  //   const merged = searchResults.map(selecting);
-  //   setBooks(merged);
-  // }, [searchResults]);
-
-  // useEffect(() => {
-  //   const selecting2 = bookObj =>
-  //     books.find(el => el.id === bookObj.id) ? false : true;
-  //   const filtered = searchResults.filter(selecting2);
-  //   const newBookArray  = [...books,...filtered]
-  //   setBooks(newBookArray)
-  // }, [searchResults]);
-
-  return (
-    <BrowserRouter>
-    <div className="app">
-    <Route
-      exact
-      path="/"
-      render={props => (
-        <ListBooks
-          {...props}
-          books={books}
-          changeShelf={changeShelf}
-          showSearchPage={showSearchPage}
-          setShowSearchPage={setShowSearchPage}
-          setBooks={setBooks}
-        />
-      )}
->>>>>>> 90a82286b18202ffb0c64c2916dc07684f68d1cb
         />
             <Route
               path="/search"
