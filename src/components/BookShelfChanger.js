@@ -1,25 +1,23 @@
 import React, { useState } from "react";
 import shelves from "../shelvesData";
+import PropTypes, { arrayOf } from "prop-types";
 
-const BookShelfChanger = ({book, changeShelf }) => {
-  const [shelf,newShelf] = useState(book.shelf ? book.shelf : "none")
-  const backgroundColor = shelf === "none" ? "gray" : "#60ac5d"
-  
+const BookShelfChanger = ({ book, changeShelf }) => {
+  const [shelf, newShelf] = useState(book.shelf ? book.shelf : "none");
+  const backgroundColor = shelf === "none" ? "gray" : "#60ac5d";
+
   const optionsList = Object.keys(shelves).map((entry) => (
     <option value={shelves[entry].id}>{shelves[entry].name}</option>
   ));
 
   return (
-    <div className="book-shelf-changer"
-    style={{backgroundColor}}
-    >
+    <div className="book-shelf-changer" style={{ backgroundColor }}>
       <select
         defaultValue={shelf}
         onChange={(e) => {
           //I need to update the state to force a re-render in order to update color
-          newShelf(e.target.value)
-          changeShelf(book, e.target.value)
-          
+          newShelf(e.target.value);
+          changeShelf(book, e.target.value);
         }}
       >
         <option value="move" disabled>
@@ -31,4 +29,11 @@ const BookShelfChanger = ({book, changeShelf }) => {
   );
 };
 
+BookShelfChanger.propTypes = {
+  book: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  }),
+  changeShelf: PropTypes.func,
+};
 export default BookShelfChanger;

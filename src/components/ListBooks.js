@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Bookshelf from "./Bookshelf";
 import shelves from "../shelvesData";
-import { BrowserRouter, Route, Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const ListBooks = ({
   books,
   changeShelf,
   setShowSearchPage,
-  showSearchPage
+  showSearchPage,
 }) => {
   const { currentlyReading, wantToRead, read } = shelves;
-  console.log(showSearchPage);
-  return (showSearchPage ? <Redirect to="/search"/> :
+  return showSearchPage ? (
+    <Redirect to="/search" />
+  ) : (
     <div className="list-books">
       <div className="list-books-title">
         <h1>MyReads</h1>
@@ -32,7 +34,6 @@ const ListBooks = ({
         </div>
       </div>
       <div className="open-search">
-        {/* <button onClick={() => "setShowSearchPage(true)"}>Add a book</button> */}
         <button
           onClick={() => {
             setShowSearchPage(true);
@@ -43,6 +44,13 @@ const ListBooks = ({
       </div>
     </div>
   );
+};
+
+ListBooks.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.object),
+  changeShelf: PropTypes.func,
+  setShowSearchPage: PropTypes.func,
+  showSearchPage: PropTypes.bool,
 };
 
 export default ListBooks;

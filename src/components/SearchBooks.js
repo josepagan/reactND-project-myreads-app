@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import * as BooksAPI from "../BooksAPI";
 import { Redirect } from "react-router-dom";
 import Book from "./Book";
+import PropTypes from "prop-types";
+
 
 const SearchBooks = ({
   showSearchPage,
@@ -25,6 +27,8 @@ const SearchBooks = ({
   };
 
   useEffect(() => {
+
+    
     if (searchInput) {
       BooksAPI.search(searchInput, 10).then((data) => handleSearchResult(data));
     }
@@ -72,5 +76,12 @@ const SearchBooks = ({
     </div>
   );
 };
+
+SearchBooks.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.object),
+  changeShelf: PropTypes.func,
+  setShowSearchPage: PropTypes.func,
+  showSearchPage: PropTypes.bool,
+}
 
 export default SearchBooks;

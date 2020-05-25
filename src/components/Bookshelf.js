@@ -1,5 +1,7 @@
 import React from "react";
 import Book from "./Book";
+import PropTypes, { arrayOf } from 'prop-types';
+
 
 const Bookshelf = ({ books, shelf, changeShelf }) => {
   const booksGridList = books
@@ -16,4 +18,13 @@ const Bookshelf = ({ books, shelf, changeShelf }) => {
     </div>
   );
 };
+
+Bookshelf.propTypes = {
+  books: PropTypes.arrayOf(PropTypes.object),
+  shelf: PropTypes.shape({
+    id: PropTypes.string,
+    name: PropTypes.string
+  })
+}
+
 export default Bookshelf;

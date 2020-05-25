@@ -15,7 +15,6 @@ const App = () => {
     const selecting = bookObj =>
       books.find(el => el.id === bookObj.id) || bookObj;
     const merged = searchResults.map(selecting);
-    console.log("merged", merged)
 
   const changeShelf = (book, shelf) => {
     BooksAPI.update(book, shelf).then((data) => {
