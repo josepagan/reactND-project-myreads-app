@@ -24,7 +24,7 @@ const App = () => {
   };
 
   useEffect(() => {
-    /** Initial api call to fetch user data and set to state */
+    /** Initial api call to fetch user data from backend and set to state */
     BooksAPI.getAll().then((data) => {
       setBooks(data);
     });

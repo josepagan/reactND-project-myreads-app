@@ -63,7 +63,7 @@ const SearchBooks = ({
       </div>
       <div className="search-books-results">
         {emptyQuery ? (
-          <div>Nothing found with current term...</div>
+          <div>No entries found with {searchInput}...</div>
         ) : (
           <ol className="books-grid">
             {searchInput === ""
