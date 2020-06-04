@@ -1,8 +1,12 @@
 import React from "react";
 import Book from "./Book";
-import PropTypes, { arrayOf } from 'prop-types';
+import PropTypes from 'prop-types';
 
-
+/**
+ * Displays a specific set of books depending on the shelf property contained
+ * in the book object
+ * @component
+ */
 const Bookshelf = ({ books, shelf, changeShelf }) => {
   const booksGridList = books
     .filter((bookObj) => bookObj.shelf === shelf.id)
@@ -20,6 +24,9 @@ const Bookshelf = ({ books, shelf, changeShelf }) => {
 };
 
 Bookshelf.propTypes = {
+  /**
+   * An array of book objects, as are from 
+   */
   books: PropTypes.arrayOf(PropTypes.object),
   shelf: PropTypes.shape({
     id: PropTypes.string,

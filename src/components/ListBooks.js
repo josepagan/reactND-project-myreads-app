@@ -4,6 +4,9 @@ import shelves from "../shelvesData";
 import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
+/** Display a set of Bookshelf components and a link to search page
+ * @component
+ */
 const ListBooks = ({
   books,
   changeShelf,

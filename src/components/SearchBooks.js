@@ -4,7 +4,9 @@ import { Redirect } from "react-router-dom";
 import Book from "./Book";
 import PropTypes from "prop-types";
 
-
+/** Display input and search results in a grid 
+ * @component
+*/
 const SearchBooks = ({
   showSearchPage,
   setShowSearchPage,
@@ -18,6 +20,10 @@ const SearchBooks = ({
     setSearchInput(e.target.value);
   };
 
+  /** search results handler. If results have .error property it will set
+   * its emptyQuery state to true, if the result is an array of books it will
+   * update SearchResults state on App
+   */
   const handleSearchResult = (data) => {
     if (data.error === "empty query") setEmptyQuery(true);
     else if (Array.isArray(data)) {
@@ -27,9 +33,8 @@ const SearchBooks = ({
   };
 
   useEffect(() => {
-
-    
     if (searchInput) {
+      /**search query call */
       BooksAPI.search(searchInput, 10).then((data) => handleSearchResult(data));
     }
   }, [searchInput]);
@@ -58,7 +63,7 @@ const SearchBooks = ({
       </div>
       <div className="search-books-results">
         {emptyQuery ? (
-          <div>sorray mate</div>
+          <div>Nothing found with current term...</div>
         ) : (
           <ol className="books-grid">
             {searchInput === ""
