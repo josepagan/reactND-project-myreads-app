@@ -34,16 +34,12 @@ const BookShelfChanger = ({ book, changeShelf }) => {
 };
 
 BookShelfChanger.propTypes = {
-  /**
-   * object containing single book data
-   */
+  /** Single book object */
   book: PropTypes.shape({
     id: PropTypes.string,
     name: PropTypes.string,
   }),
-  /**
-   * Handler function to change shelf
-   */
-  changeShelf: PropTypes.func,
+  /**Event handling funciton to change shelf of book */
+  changeShelf: PropTypes.func.isRequired,
 };
 export default BookShelfChanger;

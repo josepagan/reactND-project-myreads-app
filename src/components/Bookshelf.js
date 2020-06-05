@@ -24,13 +24,12 @@ const Bookshelf = ({ books, shelf, changeShelf }) => {
 };
 
 Bookshelf.propTypes = {
-  /**
-   * An array of book objects, as are from 
-   */
+  /**Array of books objects */
   books: PropTypes.arrayOf(PropTypes.object),
+  /** shelf data object */
   shelf: PropTypes.shape({
-    id: PropTypes.string,
-    name: PropTypes.string
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
   })
 }
 

@@ -50,10 +50,14 @@ const ListBooks = ({
 };
 
 ListBooks.propTypes = {
+  /**Array of books objects */
   books: PropTypes.arrayOf(PropTypes.object),
-  changeShelf: PropTypes.func,
-  setShowSearchPage: PropTypes.func,
-  showSearchPage: PropTypes.bool,
+  /**Event handling funciton to change shelf of book */
+  changeShelf: PropTypes.func.isRequired,
+  /**Function to handle the search button on-click event, altering state */
+  setShowSearchPage: PropTypes.func.isRequired,
+  /**App state that determines  whether SearchBooks or ListBooks is shown */
+  showSearchPage: PropTypes.bool.isRequired,
 };
 
 export default ListBooks;

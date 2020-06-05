@@ -39,15 +39,11 @@ const Book = ({ bookObj, changeShelf }) => {
 };
 
 Book.propTypes = {
-  /**
-   * book individual object
-   */
+  /** Single book object */
   bookObj: PropTypes.shape({
-    id:PropTypes.string.isRequired
+    id:PropTypes.string
   }),
-  /**
-   * handler function to change shelf
-   */
+  /**Event handling funciton to change shelf of book */
   changeShelf: PropTypes.func.isRequired,
 };
 export default Book;
